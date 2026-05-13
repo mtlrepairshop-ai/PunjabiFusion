@@ -4,7 +4,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const CLOVER_PRIVATE_TOKEN = process.env.CLOVER_PRIVATE_TOKEN || "4d7acb77-4472-bbfc-2e99-57e3766d5153";
+const CLOVER_PRIVATE_TOKEN = process.env.CLOVER_PRIVATE_TOKEN;
+
+if (!CLOVER_PRIVATE_TOKEN) {
+  throw new Error("CLOVER_PRIVATE_TOKEN is not set. Add it to server/.env or your hosting environment.");
+}
 const CLOVER_ENV = process.env.CLOVER_ENV || "production";
 const CLOVER_API_BASE = CLOVER_ENV === "sandbox"
   ? "https://scl-sandbox.dev.clover.com"
