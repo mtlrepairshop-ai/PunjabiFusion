@@ -19,7 +19,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production'
-    ? ['https://pfgrill.com', 'https://www.pfgrill.com']
+    ? ['https://pfgrill.in', 'https://www.pfgrill.in']
     : ['http://localhost:3000', 'http://localhost:5173'],
   credentials: true
 }));
