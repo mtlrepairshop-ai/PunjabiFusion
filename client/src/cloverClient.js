@@ -1,5 +1,5 @@
 // client/src/cloverClient.js
-const CLOVER_PUBLIC_TOKEN = "85cf68003c271b32ac77b7cc0e3622cf";
+const CLOVER_PUBLIC_TOKEN = "5227e9efdc3a490daa2a5b6199f3db63";
 const CLOVER_SDK_URL = "https://checkout.clover.com/sdk.js";
 
 let _sdkPromise = null;
