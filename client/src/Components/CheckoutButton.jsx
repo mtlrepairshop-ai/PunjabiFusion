@@ -10,6 +10,11 @@ const CheckoutButton = ({ cartItems, disabled = false, onCheckoutStart, onChecko
   const [cloverInstance, setCloverInstance] = useState(null);
   const [cardReady, setCardReady] = useState(false);
   const [email, setEmail] = useState("");
+  const [customerName, setCustomerName] = useState('');
+const [phone, setPhone] = useState('');
+const [address, setAddress] = useState('');
+const [orderType, setOrderType] = useState('pickup');
+const [notes, setNotes] = useState('');
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const mountedRef = useRef(true);
 
@@ -108,7 +113,11 @@ const CheckoutButton = ({ cartItems, disabled = false, onCheckoutStart, onChecko
           amount: parseFloat(cartTotal),
           description: `PF Grill Order - ${cartItems.length} item(s)`,
           email: email || undefined,
-        }),
+      customerName,
+phone,
+address,
+orderType,
+notes,
       });
 
       const data = await response.json();
@@ -187,6 +196,59 @@ const CheckoutButton = ({ cartItems, disabled = false, onCheckoutStart, onChecko
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+              <div className="mb-3">
+  <label className="form-label">Customer Name</label>
+  <input
+    type="text"
+    className="form-control"
+    value={customerName}
+    onChange={(e) => setCustomerName(e.target.value)}
+    required
+  />
+</div>
+
+<div className="mb-3">
+  <label className="form-label">Phone Number</label>
+  <input
+    type="tel"
+    className="form-control"
+    value={phone}
+    onChange={(e) => setPhone(e.target.value)}
+    required
+  />
+</div>
+
+<div className="mb-3">
+  <label className="form-label">Order Type</label>
+  <select
+    className="form-control"
+    value={orderType}
+    onChange={(e) => setOrderType(e.target.value)}
+  >
+    <option value="pickup">Pickup</option>
+    <option value="delivery">Delivery</option>
+  </select>
+</div>
+
+{orderType === 'delivery' && (
+  <div className="mb-3">
+    <label className="form-label">Delivery Address</label>
+    <textarea
+      className="form-control"
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+    />
+  </div>
+)}
+
+<div className="mb-3">
+  <label className="form-label">Special Instructions</label>
+  <textarea
+    className="form-control"
+    value={notes}
+    onChange={(e) => setNotes(e.target.value)}
+  />
+</div>
 
               <div className="mb-3">
                 <label className="form-label">Card Number</label>
