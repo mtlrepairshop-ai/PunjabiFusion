@@ -20,7 +20,17 @@ export default async function handler(req, res) {
       : "https://scl.clover.com";
 
   try {
-    const { token, amount, description, email } = req.body;
+    const {
+  token,
+  amount,
+  description,
+  email,
+  customerName,
+  phone,
+  address,
+  orderType,
+  notes
+} = req.body;
 
     if (!token) {
       return res.status(400).json({ error: "Payment token is required" });
@@ -38,7 +48,15 @@ export default async function handler(req, res) {
       currency: "usd",
       description: description || "Punjabi Fusion Grill - Food Order",
     };
-
+console.log('NEW ORDER:', {
+  customerName,
+  phone,
+  address,
+  orderType,
+  notes,
+  email,
+  amount
+});
     if (email) {
       chargePayload.receipt_email = email;
     }
@@ -64,11 +82,20 @@ export default async function handler(req, res) {
 
     console.log("Clover charge successful:", data.id);
     return res.status(200).json({
-      success: true,
-      chargeId: data.id,
-      status: data.status,
-      amount: data.amount,
-    });
+  success: true,
+  chargeId: data.id,
+  status: data.status,
+  amount: data.amount,
+  order: {
+    customerName,
+    phone,
+    address,
+    orderType,
+    notes,
+    email
+  }
+});
+  
   } catch (err) {
     console.error("Server error:", err);
     return res.status(500).json({ error: "Internal server error. Please try again." });
