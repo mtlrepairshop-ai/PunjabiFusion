@@ -119,7 +119,7 @@ address,
 orderType,
 notes,
       }),
-
+      });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error || 'Payment failed. Please try again.');
